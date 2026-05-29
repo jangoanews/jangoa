@@ -681,6 +681,7 @@ function render(){
 function nav(page){
   curPage=page; curArticle=null; searchQ="";
   if(page!=="search") curCat=(CATS[page]?page:null);
+  history.pushState({page:page, articleId:null}, "", "#"+page);
   render();
 }
 
@@ -688,6 +689,7 @@ function openArt(id){
   const a=articles.find(x=>x.id===id);
   if(!a) return;
   curArticle=a; curPage="article"; curCat=a.cat;
+  history.pushState({page:"article", articleId:id}, "", "#article-"+id);
   render();
 }
 
@@ -695,6 +697,7 @@ function doSearch(){
   const q=(document.getElementById("sq")||{}).value||"";
   if(!q.trim()) return;
   searchQ=q; curPage="search";
+  history.pushState({page:"search"}, "", "#search");
   render();
 }
 
@@ -720,7 +723,37 @@ function openAdmin(){
   window.open("jangoa-admin.html","_blank");
 }
 
-window.onload=function(){render();setInterval(updateTime,60000)};
+window.onload=function(){
+  // Handle browser back/forward
+  window.addEventListener("popstate", function(e){
+    if(e.state){
+      if(e.state.page==="article" && e.state.articleId){
+        const a=articles.find(x=>x.id===e.state.articleId);
+        if(a){curArticle=a; curPage="article"; curCat=a.cat;}
+      } else {
+        curPage=e.state.page||"home";
+        curArticle=null;
+        curCat=CATS[curPage]?curPage:null;
+      }
+      render();
+    } else {
+      curPage="home"; curArticle=null; curCat=null;
+      render();
+    }
+  });
+  // Handle hash on page load
+  const hash=window.location.hash.replace("#","");
+  if(hash && hash.startsWith("article-")){
+    const id=parseInt(hash.replace("article-",""));
+    const a=articles.find(x=>x.id===id);
+    if(a){curArticle=a; curPage="article"; curCat=a.cat;}
+  } else if(hash && (CATS[hash]||["home","about","contact","videos"].includes(hash))){
+    curPage=hash; curCat=CATS[hash]?hash:null;
+  }
+  render();
+  setInterval(updateTime,60000);
+  history.replaceState({page:curPage, articleId:curArticle?curArticle.id:null},"","#"+curPage);
+};
 </script>
 </body>
 </html>
