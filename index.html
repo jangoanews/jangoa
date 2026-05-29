@@ -204,9 +204,52 @@ footer{background:#111;color:#ccc;padding:40px 0 16px;margin-top:40px}
   .topbar{display:none}
   .search-wrap input{width:110px}
 }
+
+/* SLIDER */
+.slider-wrap{position:relative;width:100%;overflow:hidden;border-radius:10px;background:#111;margin-bottom:24px}
+.slider-track{display:flex;transition:transform 0.5s cubic-bezier(.4,0,.2,1)}
+.slide{min-width:100%;position:relative;cursor:pointer}
+.slide .bg-img{width:100%;height:440px;object-fit:cover}
+.slide-ov{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9));padding:36px 28px 24px;color:#fff}
+.slide-ov .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 12px;border-radius:3px;margin-bottom:10px;text-transform:uppercase}
+.slide-ov h2{font-family:"Playfair Display",serif;font-size:26px;line-height:1.35;margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.slide-ov p{font-size:13px;opacity:.88;line-height:1.6;max-width:700px}
+.slide-ov .meta{margin-top:10px;font-size:12px;opacity:.7}
+.slide-ad{min-width:100%;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;height:440px}
+.slide-ad-inner{text-align:center;color:#fff;padding:20px}
+.slide-ad-inner p{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase}
+.slide-ad-inner .ad-box-inner{background:rgba(255,255,255,0.05);border:1px dashed rgba(255,255,255,0.2);border-radius:8px;padding:32px 48px;color:rgba(255,255,255,0.5);font-size:13px;min-width:300px}
+
+/* SLIDER CONTROLS */
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;z-index:10;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.slider-btn:hover{background:rgba(192,22,14,0.85)}
+.slider-prev{left:14px}
+.slider-next{right:14px}
+.slider-dots{position:absolute;bottom:14px;right:18px;display:flex;gap:6px;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all .2s;border:none;padding:0}
+.dot.active{background:#fff;width:22px;border-radius:4px}
+.slide-num{position:absolute;top:14px;right:18px;background:rgba(0,0,0,0.5);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px;z-index:10;letter-spacing:.5px}
+
+/* AD UNITS */
+.ad-unit-wrap{text-align:center;margin:20px 0;overflow:hidden}
+.ad-label{font-size:10px;color:#bbb;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ad-ins{display:block;min-height:90px}
+.ad-unit-wrap.sidebar-ad{margin:0 0 18px}
+.ad-unit-wrap.in-article{margin:28px auto;max-width:728px}
+.ad-unit-wrap.banner-ad{background:#f8f8f8;padding:12px;border-radius:6px;margin:16px 0}
+.ad-unit-wrap.horizontal-ad{background:#f8f8f8;padding:8px;border-radius:6px}
 </style>
+<!-- GOOGLE ADSENSE AUTO ADS -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8329599591638655" crossorigin="anonymous"></script>
 </head>
 <body>
+<script>
+// GOOGLE AUTO ADS - ACTIVE
+(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-8329599591638655",
+  enable_page_level_ads: true
+});
+</script>
 <script>
 const LOGO="data:image/jpeg;base64,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";
 
@@ -277,6 +320,7 @@ function renderHeader(){
     {id:"videos",label:"📹 Videos"},
     {id:"about",label:"About Us"},
     {id:"contact",label:"Contact"},
+    {id:"privacy",label:"Privacy Policy"},
   ];
   const active=curPage==="article"?curCat:(curPage==="home"?"home":curPage);
   return `
@@ -308,8 +352,119 @@ function renderHeader(){
   </div></nav>`;
 }
 
+
+function renderPrivacy(){
+  return `
+  <div class="pg-banner"><div class="wrap">
+    <div class="breadcrumb">Home › Privacy Policy</div>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: May 2026</p>
+  </div></div>
+  <div class="wrap" style="max-width:820px;margin:28px auto;padding:0 16px 48px">
+    <div class="about-card">
+      <p style="font-size:14px;line-height:1.9;color:#555">
+        Welcome to Jangoa (<strong>jangoa.in</strong>). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, and share information about you when you visit our website.
+      </p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">1. Information We Collect</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">We collect information you provide directly to us, such as when you contact us via our contact form. This may include your name, email address, and message content. We also automatically collect certain information when you visit our website, including your IP address, browser type, pages visited, and time spent on pages.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">2. How We Use Your Information</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">We use the information we collect to operate and improve our website, respond to your comments and questions, send you news updates if you have subscribed, monitor and analyze usage patterns, and comply with legal obligations.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">3. Google AdSense and Advertising</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">We use Google AdSense to display advertisements on our website. Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" style="color:#c0160e">Google Ads Settings</a>.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">4. Cookies</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">Our website uses cookies to enhance your browsing experience. Cookies are small text files stored on your device. We use cookies to remember your preferences, analyze website traffic, and serve personalized advertisements through Google AdSense. You can control cookies through your browser settings.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">5. Third Party Links</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of those websites. We encourage you to review the privacy policies of any third-party sites you visit.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">6. Data Security</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">7. Children's Privacy</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">Our website is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">8. Your Rights</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">You have the right to access, update, or delete your personal information. You may also opt out of receiving communications from us at any time. To exercise these rights, please contact us at <a href="mailto:jangoanews@gmail.com" style="color:#c0160e">jangoanews@gmail.com</a>.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">9. Changes to This Policy</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page with an updated date. We encourage you to review this policy periodically.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">10. Contact Us</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">If you have any questions about this Privacy Policy, please contact us at:<br><br>
+      <strong>Jangoa News</strong><br>
+      Panaji, Goa - 403001, India<br>
+      Email: <a href="mailto:jangoanews@gmail.com" style="color:#c0160e">jangoanews@gmail.com</a><br>
+      Website: <a href="https://jangoa.in" style="color:#c0160e">jangoa.in</a>
+      </p>
+    </div>
+  </div>`;
+}
+
+function renderDisclaimer(){
+  return `
+  <div class="pg-banner"><div class="wrap">
+    <div class="breadcrumb">Home › Disclaimer</div>
+    <h1>Disclaimer</h1>
+    <p>Last updated: May 2026</p>
+  </div></div>
+  <div class="wrap" style="max-width:820px;margin:28px auto;padding:0 16px 48px">
+    <div class="about-card">
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:0 0 10px">General Disclaimer</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">The information provided by Jangoa (<strong>jangoa.in</strong>) is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">News Content</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">Jangoa strives to provide accurate and up-to-date news. However, news content is subject to change and we cannot guarantee that all information is current at the time of reading. Readers are advised to verify important information from official sources before making any decisions based on our content.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">External Links</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">Our website may contain links to external websites. These links are provided for your convenience. We have no control over the content of those sites and accept no responsibility for them or for any loss or damage that may arise from your use of them.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">Opinions and Views</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">The views and opinions expressed in articles and comments on Jangoa are those of the authors and do not necessarily reflect the official policy or position of Jangoa News. Any content provided by our writers is of their opinion and is not intended to malign any religion, ethnic group, club, organization, company, individual, or anyone or anything.</p>
+
+      <h3 style="font-family:Playfair Display,serif;font-size:18px;color:#c0160e;margin:20px 0 10px">Contact</h3>
+      <p style="font-size:14px;line-height:1.9;color:#555">For any queries regarding this disclaimer, contact us at <a href="mailto:jangoanews@gmail.com" style="color:#c0160e">jangoanews@gmail.com</a></p>
+    </div>
+  </div>`;
+}
+
+
+function insertArticleAd(body){
+  // Insert ad after first closing </p> tag
+  const adHtml = '<div class="ad-unit-wrap in-article"><div class="ad-label">Advertisement</div><ins class="adsbygoogle ad-ins" style="display:block;min-height:90px" data-ad-client="ca-pub-8329599591638655" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins></div>';
+  const firstP = body.indexOf('</p>');
+  if(firstP === -1) return body;
+  return body.substring(0, firstP+4) + adHtml + body.substring(firstP+4);
+}
+
+function pushAllAds(){
+  try{
+    const ads = document.querySelectorAll(".ad-ins");
+    ads.forEach(function(ad){
+      if(!ad.getAttribute("data-adsbygoogle-status")){
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    });
+  }catch(e){}
+}
 function renderFooter(){
-  return `<footer>
+  return `<div style="background:#f4f4f0;padding:12px 0">
+  <div style="max-width:1200px;margin:0 auto;padding:0 16px">
+    <div class="ad-unit-wrap">
+  <div class="ad-label">📢 Advertisement</div>
+  <ins class="adsbygoogle ad-ins"
+    style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-8329599591638655"
+    data-ad-slot="5555555555"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+</div>
+  </div>
+</div>
+<footer>
   <div class="ft-grid">
     <div class="ft-about">
       <img src="${LOGO}" alt="Jangoa">
@@ -332,9 +487,9 @@ function renderFooter(){
       <li><a href="#" onclick="nav('about');return false">About Us</a></li>
       <li><a href="#" onclick="nav('contact');return false">Contact Us</a></li>
       <li><a href="#">Advertise With Us</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms of Use</a></li>
-      <li><a href="#">Disclaimer</a></li>
+      <li><a href="#" onclick="nav('privacy');return false">Privacy Policy</a></li>
+      <li><a href="#" onclick="nav('disclaimer');return false">Disclaimer</a></li>
+      <li><a href="#" onclick="nav('about');return false">About Us</a></li>
     </ul></div>
     <div class="ft-col"><h4>Contact</h4><ul>
       <li><a href="mailto:jangoanews@gmail.com">jangoanews@gmail.com</a></li>
@@ -358,7 +513,15 @@ function renderSidebar(){
         <div><h4>${a.title}</h4><span>${CATS[a.cat].label} · ${a.date}</span></div>
       </div>`).join("")}
     </div></div>
-    <div class="ad-box">📢 Advertisement Space<br>Contact: jangoanews@gmail.com<br><small>728×90 or 300×250 available</small></div>
+    <div class="ad-unit-wrap">
+  <div class="ad-label">📢 Advertisement</div>
+  <ins class="adsbygoogle ad-ins"
+    style="display:block;min-height:250px"
+    data-ad-client="ca-pub-8329599591638655"
+    data-ad-slot="3333333333"
+    data-ad-format="rectangle"
+    data-full-width-responsive="true"></ins>
+</div>
     <div class="sw"><div class="sw-hdr">About Jangoa</div><div class="sw-body" style="font-size:13px;line-height:1.8;color:#555">
       Jangoa is Goa's trusted news platform covering politics, sports, entertainment, and business.<br><br>
       <strong>Editor:</strong> Tanvi Avasare<br>
@@ -380,31 +543,71 @@ function renderHome(){
   const side=articles.filter(a=>a.id!==featured.id).slice(0,3);
   const recent=articles.slice(0,6);
   const more=articles.slice(6,10);
+  const top10=articles.slice(0,10);
+  // Build slides: 5 news, 1 ad, 5 news
+  const slides1=top10.slice(0,5);
+  const slides2=top10.slice(5,10);
+  const totalSlides=top10.length+1; // +1 for ad slide
   return `
   <div class="wrap">
-    <div class="hero">
-      <div class="hero-main" onclick="openArt(${featured.id})">
-        ${bgImg(featured.cat,"100%","380px",featured.imgLabel)}
-        <div class="hero-ov">
-          ${badge(featured.cat,true)}
-          <h2>${featured.title}</h2>
-          <p>${featured.summary}</p>
-          <div class="meta">✍ ${featured.author} &nbsp;|&nbsp; ${featured.date}</div>
+    <!-- NEWS SLIDER -->
+    <div class="slider-wrap" id="main-slider">
+      <div class="slider-track" id="slider-track">
+        ${slides1.map(a=>`
+        <div class="slide" onclick="openArt(${a.id})">
+          ${bgImg(a.cat,"100%","440px",a.imgLabel,"min-width:100%")}
+          <div class="slide-ov">
+            <span class="badge" style="background:${CATS[a.cat].color}">${CATS[a.cat].label}</span>
+            <h2>${a.title}</h2>
+            <p>${a.summary.substring(0,120)}...</p>
+            <div class="meta">✍ ${a.author} &nbsp;|&nbsp; ${a.date} &nbsp;|&nbsp; ${a.readTime}</div>
+          </div>
+        </div>`).join("")}
+        <!-- AD SLIDE -->
+        <div class="slide-ad">
+          <div class="slide-ad-inner">
+            <p>Advertisement</p>
+            <div class="ad-box-inner" id="slider-ad-box">
+              <ins class="adsbygoogle"
+                style="display:block;min-width:300px;min-height:100px"
+                data-ad-client="ca-pub-8329599591638655"
+                data-ad-slot="auto"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                id="slider-ad-ins"></ins>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="hero-side">
-        ${side.map(a=>`<div class="ss" onclick="openArt(${a.id})">
-          ${bgImg(a.cat,"100px","82px",a.cat.toUpperCase())}
-          <div class="ss-txt">
-            <span class="badge" style="color:${CATS[a.cat].color}">${CATS[a.cat].label}</span>
-            <h3>${a.title}</h3>
-            <div class="meta">${a.date}</div>
+        ${slides2.map(a=>`
+        <div class="slide" onclick="openArt(${a.id})">
+          ${bgImg(a.cat,"100%","440px",a.imgLabel,"min-width:100%")}
+          <div class="slide-ov">
+            <span class="badge" style="background:${CATS[a.cat].color}">${CATS[a.cat].label}</span>
+            <h2>${a.title}</h2>
+            <p>${a.summary.substring(0,120)}...</p>
+            <div class="meta">✍ ${a.author} &nbsp;|&nbsp; ${a.date} &nbsp;|&nbsp; ${a.readTime}</div>
           </div>
         </div>`).join("")}
       </div>
+      <!-- Controls -->
+      <button class="slider-btn slider-prev" onclick="slideMove(-1);event.stopPropagation()">&#8249;</button>
+      <button class="slider-btn slider-next" onclick="slideMove(1);event.stopPropagation()">&#8250;</button>
+      <div class="slider-dots" id="slider-dots">
+        ${Array.from({length:totalSlides},(_,i)=>`<button class="dot ${i===0?'active':''}" onclick="slideTo(${i});event.stopPropagation()"></button>`).join("")}
+      </div>
+      <div class="slide-num" id="slide-num">1 / ${totalSlides}</div>
     </div>
   </div>
   <div class="wrap">
+    <div class="ad-unit-wrap">
+  <div class="ad-label">📢 Advertisement</div>
+  <ins class="adsbygoogle ad-ins"
+    style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-8329599591638655"
+    data-ad-slot="1111111111"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+</div>
     <div class="sec-h"><h2>Latest News</h2><div class="line-accent"></div><hr></div>
     <div class="news-grid">
       ${recent.map(a=>`<div class="nc" onclick="openArt(${a.id})">
@@ -419,6 +622,15 @@ function renderHome(){
     </div>
   </div>
   <div class="wrap">
+    <div class="ad-unit-wrap">
+  <div class="ad-label">📢 Advertisement</div>
+  <ins class="adsbygoogle ad-ins"
+    style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-8329599591638655"
+    data-ad-slot="2222222222"
+    data-ad-format="horizontal"
+    data-full-width-responsive="true"></ins>
+</div>
     <div class="cl">
       <div>
         <div class="sec-h"><h2>Top Stories</h2><div class="line-accent"></div><hr></div>
@@ -462,6 +674,15 @@ function renderCatPage(cat){
             </div>
           </div>`).join("")}
         </div>
+        <div class="ad-unit-wrap">
+  <div class="ad-label">📢 Advertisement</div>
+  <ins class="adsbygoogle ad-ins"
+    style="display:block;width:100%;min-height:90px"
+    data-ad-client="ca-pub-8329599591638655"
+    data-ad-slot="6666666666"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+</div>
         ${arts.slice(3).map(a=>`<div class="ls" onclick="openArt(${a.id})">
           ${bgImg(a.cat,"120px","85px",a.cat.toUpperCase(),"border-radius:6px")}
           <div class="ls-txt">
@@ -646,7 +867,7 @@ function renderArticle(a){
     </div>
     ${bgImg(a.cat,"100%","400px",a.imgLabel,"border-radius:8px;margin-bottom:8px")}
     <figcaption>${a.title} — Jangoa Photo</figcaption>
-    <div class="body">${a.body}</div>
+    <div class="body">${insertArticleAd(a.body)}</div>
     ${related.length>0?`
     <div class="sec-h" style="margin-top:32px"><h2>Related Stories</h2><div class="line-accent"></div><hr></div>
     <div class="news-grid" style="max-width:none">
@@ -670,18 +891,22 @@ function render(){
   else if(curPage==="contact") body=renderContact();
   else if(curPage==="videos") body=renderVideos();
   else if(curPage==="search") body=renderSearch(searchQ);
+  else if(curPage==="privacy") body=renderPrivacy();
+  else if(curPage==="disclaimer") body=renderDisclaimer();
   else if(CATS[curPage]) body=renderCatPage(curPage);
   else body=renderHome();
 
   document.body.innerHTML=renderHeader()+`<main>${body}</main>`+renderFooter();
   updateTime();
   window.scrollTo(0,0);
+  if(curPage==="home") setTimeout(initSlider, 100);
+  setTimeout(pushAllAds, 300);
 }
 
 function nav(page){
   curPage=page; curArticle=null; searchQ="";
   if(page!=="search") curCat=(CATS[page]?page:null);
-  history.pushState({page:page, articleId:null}, "", "#"+page);
+  try{history.pushState({page:page, articleId:null}, "", "#"+page);}catch(e){}
   render();
 }
 
@@ -689,7 +914,7 @@ function openArt(id){
   const a=articles.find(x=>x.id===id);
   if(!a) return;
   curArticle=a; curPage="article"; curCat=a.cat;
-  history.pushState({page:"article", articleId:id}, "", "#article-"+id);
+  try{history.pushState({page:"article", articleId:id}, "", "#article-"+id);}catch(e){}
   render();
 }
 
@@ -697,7 +922,7 @@ function doSearch(){
   const q=(document.getElementById("sq")||{}).value||"";
   if(!q.trim()) return;
   searchQ=q; curPage="search";
-  history.pushState({page:"search"}, "", "#search");
+  try{history.pushState({page:"search"}, "", "#search");}catch(e){}
   render();
 }
 
@@ -721,6 +946,54 @@ function updateTime(){
 
 function openAdmin(){
   window.open("jangoa-admin.html","_blank");
+}
+
+
+// SLIDER
+let slideIdx=0;
+let slideTotal=0;
+let sliderTimer=null;
+
+function initSlider(){
+  const track=document.getElementById("slider-track");
+  if(!track) return;
+  const slides=track.children;
+  slideTotal=slides.length;
+  slideIdx=0;
+  updateSlider();
+  clearInterval(sliderTimer);
+  sliderTimer=setInterval(()=>slideMove(1),5000);
+  // Push AdSense ad for slider ad slide
+  try{
+    const adEl=document.getElementById("slider-ad-ins");
+    if(adEl && !adEl.getAttribute("data-adsbygoogle-status")){
+      (window.adsbygoogle=window.adsbygoogle||[]).push({});
+    }
+  }catch(e){}
+}
+
+function slideMove(dir){
+  slideIdx=(slideIdx+dir+slideTotal)%slideTotal;
+  updateSlider();
+  clearInterval(sliderTimer);
+  sliderTimer=setInterval(()=>slideMove(1),5000);
+}
+
+function slideTo(idx){
+  slideIdx=idx;
+  updateSlider();
+  clearInterval(sliderTimer);
+  sliderTimer=setInterval(()=>slideMove(1),5000);
+}
+
+function updateSlider(){
+  const track=document.getElementById("slider-track");
+  const dots=document.querySelectorAll(".dot");
+  const num=document.getElementById("slide-num");
+  if(!track) return;
+  track.style.transform=`translateX(-${slideIdx*100}%)`;
+  dots.forEach((d,i)=>{d.classList.toggle("active",i===slideIdx)});
+  if(num) num.textContent=`${slideIdx+1} / ${slideTotal}`;
 }
 
 window.onload=function(){
@@ -752,7 +1025,7 @@ window.onload=function(){
   }
   render();
   setInterval(updateTime,60000);
-  history.replaceState({page:curPage, articleId:curArticle?curArticle.id:null},"","#"+curPage);
+  try{history.replaceState({page:curPage, articleId:curArticle?curArticle.id:null},"","#"+curPage);}catch(e){}
 };
 </script>
 </body>
