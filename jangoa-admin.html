@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Jangoa Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c0160e;--rd:#8e100a;--gold:#e8a020;--bg:#f0f2f5;--sidebar:#1a1a2e;--sidebar2:#16213e;--text:#1a1a1a;--muted:#666;--border:#e0e0e0;--white:#fff;--green:#2e7d32;--blue:#1565c0;--orange:#e65100;--purple:#6a1b9a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* LOGIN */
+.login-wrap{width:100%;display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,var(--rd),var(--red))}
+.login-box{background:#fff;border-radius:12px;padding:36px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.login-box .logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;justify-content:center}
+.login-box .logo img{height:52px;border-radius:8px}
+.login-box h2{font-size:22px;font-weight:700;margin-bottom:4px}
+.login-box p{color:var(--muted);font-size:13px;margin-bottom:20px}
+.login-box input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;margin-bottom:14px;outline:none;transition:border .2s}
+.login-box input:focus{border-color:var(--red)}
+.login-box button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.login-box button:hover{background:var(--rd)}
+.login-err{color:var(--red);font-size:13px;text-align:center;margin-top:8px}
+
+/* LAYOUT */
+.sidebar{width:240px;background:var(--sidebar);min-height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column}
+.sb-logo{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+.sb-logo img{height:40px;border-radius:6px}
+.sb-logo span{color:#fff;font-weight:700;font-size:16px}
+.sb-logo small{color:rgba(255,255,255,0.5);font-size:10px;display:block}
+.sb-nav{flex:1;padding:12px 0}
+.sb-nav a{display:flex;align-items:center;gap:10px;padding:11px 18px;color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;transition:all .2s;cursor:pointer;border-left:3px solid transparent}
+.sb-nav a:hover{background:rgba(255,255,255,0.06);color:#fff}
+.sb-nav a.active{background:rgba(192,22,14,0.25);color:#fff;border-left:3px solid var(--red)}
+.sb-nav .sec-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,0.3);padding:14px 18px 6px;text-transform:uppercase}
+.sb-nav .icon{font-size:16px;width:20px;text-align:center}
+.sb-foot{padding:14px 16px;border-top:1px solid rgba(255,255,255,0.08)}
+.sb-foot a{color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:4px}
+.sb-foot a:hover{color:#fff}
+
+.main{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.topbar h2{font-size:16px;font-weight:600;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.user-chip{display:flex;align-items:center;gap:8px;font-size:13px}
+.user-av{width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.logout-btn{background:none;border:1px solid var(--border);padding:6px 12px;border-radius:4px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--muted)}
+.logout-btn:hover{background:#fdecea;color:var(--red);border-color:var(--red)}
+
+.content{padding:24px;flex:1}
+.page{display:none}
+.page.active{display:block}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.stat-card .lbl{font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .val{font-size:28px;font-weight:700;line-height:1}
+.stat-card .sub{font-size:12px;color:var(--green);margin-top:4px}
+.stat-card .icon{font-size:28px;float:right;opacity:.15;margin-top:-30px}
+
+/* CARDS */
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:20px;overflow:hidden}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.card-hdr h3{font-size:14px;font-weight:700}
+.card-body{padding:18px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--rd)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#1b5e20}
+.btn-outline{background:#fff;color:var(--text);border:1px solid var(--border)}.btn-outline:hover{background:var(--bg)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-danger{background:#fdecea;color:var(--red);border:1px solid #f5c6c6}.btn-danger:hover{background:var(--red);color:#fff}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;background:#f8f8f8;font-weight:700;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:11px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafafa}
+.cat-pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;text-transform:uppercase}
+
+/* FORM */
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{border-color:var(--red)}
+.form-row textarea{height:160px;resize:vertical}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-full{grid-column:1/-1}
+
+/* BADGE */
+.badge-pub{background:#e8f5e9;color:var(--green);font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+.badge-draft{background:#fff3e0;color:var(--orange);font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+.badge-feat{background:#e3f2fd;color:var(--blue);font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#333;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;animation:slideIn .3s ease;display:none}
+.toast.show{display:block}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* MODAL */
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:500;display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:12px;width:680px;max-width:95vw;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-hdr{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:1}
+.modal-hdr h3{font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);padding:0 4px;line-height:1}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:22px}
+.modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+
+/* SETTINGS */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.setting-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.setting-item:last-child{border-bottom:none}
+.setting-item .lbl{font-size:14px;font-weight:500}
+.setting-item .desc{font-size:12px;color:var(--muted);margin-top:2px}
+.toggle{width:44px;height:24px;background:var(--border);border-radius:12px;cursor:pointer;position:relative;transition:background .2s}
+.toggle.on{background:var(--green)}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle.on::after{left:23px}
+
+/* RICH TEXT HINT */
+.rich-hint{font-size:11px;color:var(--muted);margin-top:4px}
+.rich-hint code{background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:11px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-box">
+    <div class="logo">
+      <img src="data:image/jpeg;base64,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" alt="Jangoa">
+      <div><h2>JANGOA</h2><p style="margin:0;font-size:11px;color:#999">लोकांचं मत, आमचा आवाज</p></div>
+    </div>
+    <h2>Admin Login</h2>
+    <p>Sign in to manage your news website</p>
+    <input type="text" id="l-user" placeholder="Username" value="admin">
+    <input type="password" id="l-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="l-err"></div>
+    <p style="font-size:11px;color:#bbb;text-align:center;margin-top:14px">Demo: admin / jangoa123</p>
+  </div>
+</div>
+
+<!-- ADMIN LAYOUT -->
+<div id="admin-wrap" style="display:none;width:100%">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <img src="data:image/jpeg;base64,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" alt="Jangoa">
+      <div><span>JANGOA</span><small>Admin Panel</small></div>
+    </div>
+    <div class="sb-nav">
+      <div class="sec-lbl">Main</div>
+      <a onclick="showPage('dashboard')" id="mn-dashboard" class="active"><span class="icon">📊</span> Dashboard</a>
+      <a onclick="showPage('articles')" id="mn-articles"><span class="icon">📰</span> All Articles</a>
+      <a onclick="showPage('new-article')" id="mn-new-article"><span class="icon">✏️</span> Write New Article</a>
+      <div class="sec-lbl">Manage</div>
+      <a onclick="showPage('categories')" id="mn-categories"><span class="icon">📂</span> Categories</a>
+      <a onclick="showPage('media')" id="mn-media"><span class="icon">🖼️</span> Media Library</a>
+      <a onclick="showPage('comments')" id="mn-comments"><span class="icon">💬</span> Comments</a>
+      <div class="sec-lbl">Site</div>
+      <a onclick="showPage('settings')" id="mn-settings"><span class="icon">⚙️</span> Site Settings</a>
+      <a onclick="showPage('seo')" id="mn-seo"><span class="icon">🔍</span> SEO Manager</a>
+      <a onclick="showPage('ads')" id="mn-ads"><span class="icon">📢</span> Ad Manager</a>
+    </div>
+    <div class="sb-foot">
+      <a href="jangoa.html" target="_blank">🌐 View Website</a>
+      <a onclick="doLogout()">🚪 Logout</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h2 id="page-title">Dashboard</h2>
+      <div class="topbar-right">
+        <span style="font-size:12px;color:var(--muted)" id="tb-time"></span>
+        <div class="user-chip">
+          <div class="user-av">TA</div>
+          <span style="font-size:13px">Tanvi Avasare</span>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="pg-dashboard">
+        <div class="stats">
+          <div class="stat-card">
+            <div class="lbl">Total Articles</div>
+            <div class="val" id="stat-total">0</div>
+            <div class="sub" id="stat-total-sub">↑ Loading...</div>
+            <div class="icon">📰</div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl">Categories</div>
+            <div class="val">8</div>
+            <div class="sub">Goa, Politics, Sports...</div>
+            <div class="icon">📂</div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl">Featured Story</div>
+            <div class="val">1</div>
+            <div class="sub" id="stat-feat-title" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:140px">Loading...</div>
+            <div class="icon">⭐</div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl">Last Published</div>
+            <div class="val" style="font-size:18px" id="stat-last">—</div>
+            <div class="sub" id="stat-last-cat">—</div>
+            <div class="icon">🕒</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:20px">
+          <div class="card">
+            <div class="card-hdr"><h3>Recent Articles</h3><button class="btn btn-red btn-sm" onclick="showPage('new-article')">+ New Article</button></div>
+            <div class="card-body" style="padding:0">
+              <table>
+                <thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Action</th></tr></thead>
+                <tbody id="dash-recent"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Articles by Category</h3></div>
+            <div class="card-body" id="cat-breakdown"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:0">
+          <div class="card-hdr"><h3>Quick Actions</h3></div>
+          <div class="card-body" style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-red" onclick="showPage('new-article')">✏️ Write New Article</button>
+            <button class="btn btn-outline" onclick="showPage('articles')">📰 Manage Articles</button>
+            <button class="btn btn-outline" onclick="showPage('settings')">⚙️ Site Settings</button>
+            <button class="btn btn-outline" onclick="showPage('seo')">🔍 SEO Settings</button>
+            <button class="btn btn-outline" onclick="window.open('jangoa.html','_blank')">🌐 View Live Site</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL ARTICLES -->
+      <div class="page" id="pg-articles">
+        <div class="card">
+          <div class="card-hdr">
+            <h3>All Articles (<span id="art-count">0</span>)</h3>
+            <div style="display:flex;gap:10px;align-items:center">
+              <select id="filter-cat" onchange="renderArticleTable()" style="padding:7px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;outline:none">
+                <option value="">All Categories</option>
+                <option value="goa">Goa News</option>
+                <option value="politics">Politics</option>
+                <option value="sports">Sports</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+                <option value="health">Health</option>
+              </select>
+              <button class="btn btn-red" onclick="showPage('new-article')">+ New Article</button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0;overflow-x:auto">
+            <table>
+              <thead><tr><th>#</th><th style="min-width:280px">Title</th><th>Category</th><th>Author</th><th>Date</th><th>Featured</th><th>Actions</th></tr></thead>
+              <tbody id="art-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW / EDIT ARTICLE -->
+      <div class="page" id="pg-new-article">
+        <div style="display:grid;grid-template-columns:1fr 280px;gap:20px">
+          <div class="card">
+            <div class="card-hdr"><h3 id="art-form-title">Write New Article</h3></div>
+            <div class="card-body">
+              <input type="hidden" id="edit-id" value="">
+              <div class="form-row"><label>Article Title *</label><input type="text" id="f-title" placeholder="Enter a compelling headline..."></div>
+              <div class="form-row"><label>Summary / Excerpt *</label><textarea id="f-summary" style="height:80px" placeholder="Brief 1-2 sentence summary shown on homepage cards..."></textarea></div>
+              <div class="form-row">
+                <label>Full Article Body *</label>
+                <div class="rich-hint">Use HTML tags: <code>&lt;p&gt;</code> for paragraphs, <code>&lt;h3&gt;</code> for subheadings, <code>&lt;blockquote&gt;</code> for quotes</div>
+                <textarea id="f-body" style="height:300px;margin-top:6px;font-family:monospace;font-size:13px" placeholder="<p>First paragraph...</p>&#10;<h3>Subheading</h3>&#10;<p>More content...</p>&#10;<blockquote>A quote here</blockquote>"></textarea>
+              </div>
+              <div class="form-row"><label>Image Label</label><input type="text" id="f-imglabel" placeholder="e.g. PANAJI SMARTCITY (shown as placeholder)"></div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-hdr"><h3>Publish Settings</h3></div>
+              <div class="card-body">
+                <div class="form-row"><label>Category *</label>
+                  <select id="f-cat">
+                    <option value="goa">Goa News</option>
+                    <option value="politics">Politics</option>
+                    <option value="sports">Sports</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="business">Business</option>
+                    <option value="education">Education</option>
+                    <option value="health">Health</option>
+                  </select>
+                </div>
+                <div class="form-row"><label>Author Name</label><input type="text" id="f-author" placeholder="e.g. Jangoa Desk" value="Jangoa Desk"></div>
+                <div class="form-row"><label>Publish Date</label><input type="date" id="f-date"></div>
+                <div class="form-row"><label>Read Time</label><input type="text" id="f-read" placeholder="e.g. 3 min read" value="3 min read"></div>
+                <div class="form-row" style="display:flex;align-items:center;gap:10px">
+                  <input type="checkbox" id="f-featured" style="width:auto;margin:0">
+                  <label for="f-featured" style="margin:0;cursor:pointer">Set as Featured Story (homepage hero)</label>
+                </div>
+                <button class="btn btn-green" style="width:100%;justify-content:center;margin-top:8px" onclick="saveArticle()">💾 Save & Publish</button>
+                <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:8px" onclick="clearForm()">✖ Clear Form</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-hdr"><h3>Tips</h3></div>
+              <div class="card-body" style="font-size:12px;color:var(--muted);line-height:1.8">
+                ✅ Use <strong>short, punchy headlines</strong><br>
+                ✅ Summary should be 1-2 sentences<br>
+                ✅ Wrap each paragraph in <code style="background:#f0f0f0;padding:1px 4px;border-radius:3px">&lt;p&gt;...&lt;/p&gt;</code><br>
+                ✅ Only one article can be featured<br>
+                ✅ Add subheadings with <code style="background:#f0f0f0;padding:1px 4px;border-radius:3px">&lt;h3&gt;</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="page" id="pg-categories">
+        <div class="card">
+          <div class="card-hdr"><h3>News Categories</h3></div>
+          <div class="card-body" id="cat-table-wrap"></div>
+        </div>
+      </div>
+
+      <!-- MEDIA -->
+      <div class="page" id="pg-media">
+        <div class="card">
+          <div class="card-hdr"><h3>Media Library</h3><button class="btn btn-red btn-sm" onclick="document.getElementById('media-upload').click()">+ Upload Image</button></div>
+          <div class="card-body">
+            <input type="file" id="media-upload" accept="image/*" style="display:none" onchange="handleMediaUpload(event)">
+            <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Upload images to use in your articles. Images are stored locally in your browser.</p>
+            <div id="media-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px"></div>
+            <div id="media-empty" style="text-align:center;padding:40px;color:var(--muted)">No images uploaded yet. Click "+ Upload Image" to add images.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMENTS -->
+      <div class="page" id="pg-comments">
+        <div class="card">
+          <div class="card-hdr"><h3>Comments Management</h3></div>
+          <div class="card-body">
+            <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:16px;font-size:13px;color:#7a6000">
+              💡 <strong>Coming Soon:</strong> Comments system will be available in the next update. To enable comments on your website, you can use free services like <strong>Disqus</strong> or <strong>Facebook Comments</strong> — ask your web developer to embed the code.
+            </div>
+            <div style="margin-top:20px">
+              <h4 style="margin-bottom:12px;font-size:14px">Sample Moderation Tools (Preview)</h4>
+              <table>
+                <thead><tr><th>Commenter</th><th>Comment</th><th>Article</th><th>Date</th><th>Action</th></tr></thead>
+                <tbody>
+                  ${[["Rohan Kamat","Great coverage of the Smart City plan!","Goa Smart City","May 28"],["Priya S","FC Goa ke fans excited hai!","FC Goa ISL","May 26"],["Anita Desai","Very informative article. Keep it up Jangoa!","Tourism Revenue","May 24"]].map(([name,comment,art,date])=>`
+                  <tr><td><strong>${name}</strong></td><td style="max-width:200px">${comment}</td><td style="color:#1565c0">${art}</td><td>${date}</td>
+                  <td><button class="btn btn-sm btn-outline">✅ Approve</button> <button class="btn btn-sm btn-danger">🗑</button></td></tr>`).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page" id="pg-settings">
+        <div class="settings-grid">
+          <div class="card">
+            <div class="card-hdr"><h3>Site Settings</h3></div>
+            <div class="card-body">
+              <div class="form-row"><label>Site Name</label><input type="text" id="s-name" value="Jangoa"></div>
+              <div class="form-row"><label>Tagline</label><input type="text" id="s-tagline" value="लोकांचं मत, आमचा आवाज"></div>
+              <div class="form-row"><label>Editor Name</label><input type="text" id="s-editor" value="Tanvi Avasare"></div>
+              <div class="form-row"><label>Contact Email</label><input type="email" id="s-email" value="jangoanews@gmail.com"></div>
+              <div class="form-row"><label>Address</label><input type="text" id="s-addr" value="Panaji, Goa - 403001"></div>
+              <button class="btn btn-red" onclick="saveSettings()">Save Settings</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Social Media Links</h3></div>
+            <div class="card-body">
+              <div class="form-row"><label>Facebook URL</label><input type="text" id="s-fb" placeholder="https://facebook.com/jangoanews"></div>
+              <div class="form-row"><label>Twitter/X URL</label><input type="text" id="s-tw" placeholder="https://twitter.com/jangoanews"></div>
+              <div class="form-row"><label>Instagram URL</label><input type="text" id="s-ig" placeholder="https://instagram.com/jangoanews"></div>
+              <div class="form-row"><label>YouTube URL</label><input type="text" id="s-yt" placeholder="https://youtube.com/@jangoanews"></div>
+              <button class="btn btn-red" onclick="saveSettings()">Save Social Links</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Security</h3></div>
+            <div class="card-body">
+              <div class="form-row"><label>Change Admin Password</label><input type="password" id="s-pass1" placeholder="New password"></div>
+              <div class="form-row"><label>Confirm New Password</label><input type="password" id="s-pass2" placeholder="Confirm new password"></div>
+              <button class="btn btn-outline" onclick="changePassword()">Update Password</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Feature Toggles</h3></div>
+            <div class="card-body">
+              ${[["Breaking News Ticker","Show scrolling ticker at top"],["Featured Story Hero","Show large hero on homepage"],["Trending Sidebar","Show trending widget in sidebar"],["Search Bar","Show search in header"]].map(([lbl,desc],i)=>`
+              <div class="setting-item">
+                <div><div class="lbl">${lbl}</div><div class="desc">${desc}</div></div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>`).join("")}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="page" id="pg-seo">
+        <div class="card">
+          <div class="card-hdr"><h3>SEO Manager</h3></div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-row form-full"><label>Homepage Meta Title</label><input type="text" id="seo-title" value="Jangoa - Goa's Trusted News Portal | लोकांचं मत, आमचा आवाज"></div>
+              <div class="form-row form-full"><label>Homepage Meta Description</label><textarea id="seo-desc" style="height:80px">Jangoa is Goa's leading news portal covering breaking news, politics, sports, entertainment, and business. Accurate, fast, and fearless news from Goa.</textarea></div>
+              <div class="form-row"><label>Focus Keywords</label><input type="text" id="seo-kw" value="Goa news, Jangoa, Panaji news, Goa politics, Goa sports"></div>
+              <div class="form-row"><label>Google Analytics ID</label><input type="text" placeholder="G-XXXXXXXXXX"></div>
+              <div class="form-row"><label>Google Search Console Verification</label><input type="text" placeholder="Paste meta tag content here"></div>
+              <div class="form-row"><label>Facebook App ID (for sharing)</label><input type="text" placeholder="Your FB App ID"></div>
+            </div>
+            <div style="background:#e3f2fd;border-radius:8px;padding:16px;font-size:13px;color:#0d47a1;margin-top:8px">
+              💡 <strong>SEO Tips for Jangoa:</strong> Submit your sitemap to Google Search Console at <strong>jangoa.in/sitemap.xml</strong>. Use location keywords like "Goa", "Panaji", "North Goa" in your articles. Post at least 2-3 articles daily for best Google ranking.
+            </div>
+            <button class="btn btn-red" style="margin-top:16px" onclick="showToast('SEO settings saved!','success')">Save SEO Settings</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADS -->
+      <div class="page" id="pg-ads">
+        <div class="card">
+          <div class="card-hdr"><h3>Ad Manager</h3></div>
+          <div class="card-body">
+            <div style="background:#e8f5e9;border-radius:8px;padding:16px;font-size:13px;color:#1b5e20;margin-bottom:20px">
+              💰 <strong>How to Earn from Jangoa:</strong> Apply for Google AdSense at <strong>adsense.google.com</strong> once your site has 20+ articles and regular traffic. Paste the AdSense code in the fields below.
+            </div>
+            <div class="form-grid">
+              <div class="form-row form-full"><label>Google AdSense Publisher ID</label><input type="text" placeholder="ca-pub-XXXXXXXXXXXXXXXX"></div>
+              <div class="form-row form-full"><label>Header Banner Ad Code (728×90)</label><textarea style="height:80px;font-family:monospace;font-size:12px" placeholder="Paste Google AdSense or custom ad code here..."></textarea></div>
+              <div class="form-row form-full"><label>Sidebar Ad Code (300×250)</label><textarea style="height:80px;font-family:monospace;font-size:12px" placeholder="Paste sidebar ad code here..."></textarea></div>
+              <div class="form-row form-full"><label>In-Article Ad Code</label><textarea style="height:80px;font-family:monospace;font-size:12px" placeholder="Paste in-article ad code here..."></textarea></div>
+            </div>
+            <button class="btn btn-red" onclick="showToast('Ad settings saved!','success')">Save Ad Settings</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><h3>Direct Advertisers</h3></div>
+          <div class="card-body">
+            <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Manage local businesses advertising directly on Jangoa</p>
+            <table>
+              <thead><tr><th>Advertiser</th><th>Package</th><th>Expires</th><th>Status</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Hotel Mandovi</strong></td><td>Sidebar Banner</td><td>June 30, 2026</td><td><span class="badge-pub">Active</span></td><td>info@hotelmandovi.com</td></tr>
+                <tr><td><strong>Goa Property Hub</strong></td><td>Header + Sidebar</td><td>July 15, 2026</td><td><span class="badge-pub">Active</span></td><td>ads@goaproperty.in</td></tr>
+                <tr><td><strong>Fisherman's Wharf</strong></td><td>Sponsored Article</td><td>May 31, 2026</td><td><span class="badge-draft">Expiring Soon</span></td><td>info@fishermanswharf.com</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /admin-wrap -->
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="edit-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3>Edit Article</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="m-id">
+      <div class="form-row"><label>Title</label><input type="text" id="m-title"></div>
+      <div class="form-row"><label>Summary</label><textarea id="m-summary" style="height:80px"></textarea></div>
+      <div class="form-row"><label>Body (HTML)</label><textarea id="m-body" style="height:200px;font-family:monospace;font-size:12px"></textarea></div>
+      <div class="form-grid">
+        <div class="form-row"><label>Category</label>
+          <select id="m-cat">
+            <option value="goa">Goa News</option><option value="politics">Politics</option>
+            <option value="sports">Sports</option><option value="entertainment">Entertainment</option>
+            <option value="business">Business</option><option value="education">Education</option>
+            <option value="health">Health</option>
+          </select>
+        </div>
+        <div class="form-row"><label>Author</label><input type="text" id="m-author"></div>
+        <div class="form-row"><label>Date</label><input type="date" id="m-date"></div>
+        <div class="form-row"><label>Read Time</label><input type="text" id="m-read"></div>
+      </div>
+      <div class="form-row" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="m-featured" style="width:auto;margin:0">
+        <label for="m-featured" style="margin:0;cursor:pointer">Set as Featured Story</label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-red" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const LOGO="data:image/jpeg;base64,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";
+const ADMIN_PASS=localStorage.getItem("jangoa_admin_pass")||"jangoa123";
+
+let articles=JSON.parse(localStorage.getItem("jangoa_articles")||"null")||[];
+if(articles.length===0){
+  fetch("jangoa.html").then(()=>{}).catch(()=>{});
+  articles=[
+    {id:1,cat:"goa",title:"Goa Government Announces ₹500 Crore Smart City Plan for Panaji",summary:"The Goa state government unveiled an ambitious Smart City initiative for Panaji.",body:"<p>Article body here.</p>",author:"Jangoa Desk",date:"May 28, 2026",readTime:"4 min read",imgLabel:"PANAJI SMART CITY",featured:true},
+    {id:2,cat:"politics",title:"Opposition Demands CBI Probe into Goa Mining Lease Renewals",summary:"Congress and AAP jointly demand a CBI inquiry into mining lease irregularities.",body:"<p>Article body here.</p>",author:"Political Bureau",date:"May 27, 2026",readTime:"5 min read",imgLabel:"GOA POLITICS",featured:false},
+    {id:3,cat:"sports",title:"FC Goa Clinches ISL Trophy in Thrilling Extra-Time Victory",summary:"FC Goa defeated Mumbai City FC 3-2 after extra time in the ISL final.",body:"<p>Article body here.</p>",author:"Sports Desk",date:"May 26, 2026",readTime:"4 min read",imgLabel:"FC GOA ISL",featured:false}
+  ];
+}
+
+function saveArticles(){localStorage.setItem("jangoa_articles",JSON.stringify(articles));}
+
+function doLogin(){
+  const u=document.getElementById("l-user").value;
+  const p=document.getElementById("l-pass").value;
+  if(u==="admin"&&p===ADMIN_PASS){
+    document.getElementById("login-wrap").style.display="none";
+    document.getElementById("admin-wrap").style.display="flex";
+    refreshDashboard();
+  } else {
+    document.getElementById("l-err").textContent="Invalid username or password.";
+  }
+}
+
+function doLogout(){
+  document.getElementById("admin-wrap").style.display="none";
+  document.getElementById("login-wrap").style.display="flex";
+  document.getElementById("l-pass").value="";
+}
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".sb-nav a").forEach(a=>a.classList.remove("active"));
+  document.getElementById("pg-"+id).classList.add("active");
+  const mn=document.getElementById("mn-"+id);
+  if(mn) mn.classList.add("active");
+  const titles={dashboard:"Dashboard",articles:"All Articles","new-article":"Write New Article",categories:"Categories",media:"Media Library",comments:"Comments",settings:"Site Settings",seo:"SEO Manager",ads:"Ad Manager"};
+  document.getElementById("page-title").textContent=titles[id]||id;
+  if(id==="dashboard") refreshDashboard();
+  if(id==="articles") renderArticleTable();
+  if(id==="categories") renderCatTable();
+  if(id==="media") renderMedia();
+  if(id==="new-article"){clearForm();document.getElementById("f-date").value=new Date().toISOString().split("T")[0];}
+}
+
+const CATS={goa:{label:"GOA NEWS",color:"#c0160e"},politics:{label:"POLITICS",color:"#1565c0"},sports:{label:"SPORTS",color:"#2e7d32"},entertainment:{label:"ENTERTAINMENT",color:"#6a1b9a"},business:{label:"BUSINESS",color:"#e65100"},education:{label:"EDUCATION",color:"#00695c"},health:{label:"HEALTH",color:"#ad1457"}};
+
+function refreshDashboard(){
+  document.getElementById("stat-total").textContent=articles.length;
+  document.getElementById("stat-total-sub").textContent="↑ "+articles.length+" total articles";
+  const feat=articles.find(a=>a.featured);
+  document.getElementById("stat-feat-title").textContent=feat?feat.title.substring(0,30)+"...":"None set";
+  const last=articles[0];
+  if(last){document.getElementById("stat-last").textContent=last.date.split(",")[0];document.getElementById("stat-last-cat").textContent=(CATS[last.cat]||{label:"—"}).label;}
+  const tbody=document.getElementById("dash-recent");
+  tbody.innerHTML=articles.slice(0,6).map(a=>`<tr>
+    <td style="max-width:260px;font-weight:600;font-size:13px">${a.title.substring(0,55)}${a.title.length>55?"...":""}</td>
+    <td><span class="cat-pill" style="background:${(CATS[a.cat]||{color:"#999"}).color}">${(CATS[a.cat]||{label:"—"}).label}</span></td>
+    <td style="font-size:12px;color:var(--muted)">${a.date}</td>
+    <td><button class="btn btn-sm btn-outline" onclick="openEdit(${a.id})">Edit</button></td>
+  </tr>`).join("");
+  const breakdown=document.getElementById("cat-breakdown");
+  breakdown.innerHTML=Object.entries(CATS).map(([k,v])=>{
+    const cnt=articles.filter(a=>a.cat===k).length;
+    const pct=articles.length>0?Math.round(cnt/articles.length*100):0;
+    return `<div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:${v.color};font-weight:600">${v.label}</span><span>${cnt}</span></div>
+      <div style="height:6px;background:#f0f0f0;border-radius:3px"><div style="height:6px;background:${v.color};border-radius:3px;width:${pct}%"></div></div>
+    </div>`;
+  }).join("");
+}
+
+function renderArticleTable(){
+  const filter=document.getElementById("filter-cat").value;
+  const list=filter?articles.filter(a=>a.cat===filter):articles;
+  document.getElementById("art-count").textContent=list.length;
+  document.getElementById("art-table").innerHTML=list.map((a,i)=>`<tr>
+    <td style="color:var(--muted);font-size:12px">${i+1}</td>
+    <td style="font-weight:600;font-size:13px;max-width:280px">${a.title.substring(0,60)}${a.title.length>60?"...":""}</td>
+    <td><span class="cat-pill" style="background:${(CATS[a.cat]||{color:"#999"}).color}">${(CATS[a.cat]||{label:"—"}).label}</span></td>
+    <td style="font-size:12px">${a.author}</td>
+    <td style="font-size:12px;color:var(--muted)">${a.date}</td>
+    <td>${a.featured?'<span class="badge-feat">⭐ Featured</span>':"—"}</td>
+    <td style="white-space:nowrap">
+      <button class="btn btn-sm btn-outline" onclick="openEdit(${a.id})">✏️ Edit</button>
+      <button class="btn btn-sm btn-danger" onclick="deleteArticle(${a.id})" style="margin-left:4px">🗑</button>
+    </td>
+  </tr>`).join("");
+}
+
+function renderCatTable(){
+  document.getElementById("cat-table-wrap").innerHTML=`<table>
+    <thead><tr><th>Category</th><th>Color</th><th>Articles</th><th>Status</th></tr></thead>
+    <tbody>
+      ${Object.entries(CATS).map(([k,v])=>`<tr>
+        <td><span class="cat-pill" style="background:${v.color}">${v.label}</span></td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;background:${v.color};border-radius:4px"></div>${v.color}</div></td>
+        <td>${articles.filter(a=>a.cat===k).length} articles</td>
+        <td><span class="badge-pub">Active</span></td>
+      </tr>`).join("")}
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--muted);margin-top:12px">Categories are pre-configured. Contact your developer to add new categories.</p>`;
+}
+
+let mediaItems=JSON.parse(localStorage.getItem("jangoa_media")||"[]");
+function renderMedia(){
+  const grid=document.getElementById("media-grid");
+  const empty=document.getElementById("media-empty");
+  if(mediaItems.length===0){grid.style.display="none";empty.style.display="block";}
+  else{
+    empty.style.display="none";grid.style.display="grid";
+    grid.innerHTML=mediaItems.map((m,i)=>`<div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer" title="${m.name}">
+      <img src="${m.data}" style="width:100%;height:90px;object-fit:cover">
+      <div style="padding:6px 8px;font-size:11px;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${m.name}</div>
+      <div style="padding:0 8px 8px"><button class="btn btn-sm btn-danger" style="width:100%" onclick="deleteMedia(${i})">Delete</button></div>
+    </div>`).join("");
+  }
+}
+
+function handleMediaUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=function(ev){
+    mediaItems.push({name:file.name,data:ev.target.result});
+    localStorage.setItem("jangoa_media",JSON.stringify(mediaItems));
+    renderMedia();showToast("Image uploaded!","success");
+  };r.readAsDataURL(file);
+}
+
+function deleteMedia(i){
+  if(!confirm("Delete this image?"))return;
+  mediaItems.splice(i,1);
+  localStorage.setItem("jangoa_media",JSON.stringify(mediaItems));
+  renderMedia();showToast("Image deleted.","success");
+}
+
+function saveArticle(){
+  const title=document.getElementById("f-title").value.trim();
+  const summary=document.getElementById("f-summary").value.trim();
+  const body=document.getElementById("f-body").value.trim();
+  const cat=document.getElementById("f-cat").value;
+  const author=document.getElementById("f-author").value.trim()||"Jangoa Desk";
+  const date=document.getElementById("f-date").value;
+  const readTime=document.getElementById("f-read").value.trim()||"3 min read";
+  const featured=document.getElementById("f-featured").checked;
+  const imgLabel=document.getElementById("f-imglabel").value.trim()||cat.toUpperCase();
+  const editId=document.getElementById("edit-id").value;
+
+  if(!title||!summary||!body){showToast("Please fill Title, Summary and Body.","error");return;}
+
+  const fmt=new Date(date).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});
+
+  if(featured) articles.forEach(a=>a.featured=false);
+
+  if(editId){
+    const idx=articles.findIndex(a=>a.id===parseInt(editId));
+    if(idx>-1){articles[idx]={...articles[idx],title,summary,body,cat,author,date:fmt,readTime,featured,imgLabel};}
+  } else {
+    const newId=Math.max(0,...articles.map(a=>a.id))+1;
+    articles.unshift({id:newId,cat,title,summary,body,author,date:fmt,readTime,imgLabel,featured});
+  }
+
+  saveArticles();
+  showToast("Article saved and published! ✅","success");
+  clearForm();
+  setTimeout(()=>showPage("articles"),1200);
+}
+
+function clearForm(){
+  ["f-title","f-summary","f-body","f-imglabel"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
+  document.getElementById("f-author").value="Jangoa Desk";
+  document.getElementById("f-read").value="3 min read";
+  document.getElementById("f-featured").checked=false;
+  document.getElementById("edit-id").value="";
+  document.getElementById("art-form-title").textContent="Write New Article";
+  document.getElementById("f-date").value=new Date().toISOString().split("T")[0];
+}
+
+function openEdit(id){
+  const a=articles.find(x=>x.id===id);if(!a)return;
+  document.getElementById("m-id").value=a.id;
+  document.getElementById("m-title").value=a.title;
+  document.getElementById("m-summary").value=a.summary;
+  document.getElementById("m-body").value=a.body;
+  document.getElementById("m-cat").value=a.cat;
+  document.getElementById("m-author").value=a.author;
+  document.getElementById("m-read").value=a.readTime;
+  document.getElementById("m-featured").checked=a.featured||false;
+  document.getElementById("edit-modal").classList.add("open");
+}
+
+function closeModal(){document.getElementById("edit-modal").classList.remove("open");}
+
+function saveEdit(){
+  const id=parseInt(document.getElementById("m-id").value);
+  const idx=articles.findIndex(a=>a.id===id);if(idx<0)return;
+  const featured=document.getElementById("m-featured").checked;
+  if(featured) articles.forEach(a=>a.featured=false);
+  articles[idx]={
+    ...articles[idx],
+    title:document.getElementById("m-title").value,
+    summary:document.getElementById("m-summary").value,
+    body:document.getElementById("m-body").value,
+    cat:document.getElementById("m-cat").value,
+    author:document.getElementById("m-author").value,
+    readTime:document.getElementById("m-read").value,
+    featured
+  };
+  saveArticles();closeModal();renderArticleTable();refreshDashboard();
+  showToast("Article updated! ✅","success");
+}
+
+function deleteArticle(id){
+  if(!confirm("Delete this article permanently?"))return;
+  articles=articles.filter(a=>a.id!==id);
+  saveArticles();renderArticleTable();refreshDashboard();
+  showToast("Article deleted.","success");
+}
+
+function saveSettings(){showToast("Settings saved! ✅","success");}
+
+function changePassword(){
+  const p1=document.getElementById("s-pass1").value;
+  const p2=document.getElementById("s-pass2").value;
+  if(!p1){showToast("Enter a new password.","error");return;}
+  if(p1!==p2){showToast("Passwords do not match.","error");return;}
+  localStorage.setItem("jangoa_admin_pass",p1);
+  document.getElementById("s-pass1").value="";
+  document.getElementById("s-pass2").value="";
+  showToast("Password updated! ✅","success");
+}
+
+function showToast(msg,type){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.className="toast show "+(type||"");
+  setTimeout(()=>{t.className="toast";},3000);
+}
+
+function updateTime(){
+  const el=document.getElementById("tb-time");
+  if(el) el.textContent=new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
+}
+
+window.onload=function(){
+  updateTime();setInterval(updateTime,60000);
+  document.getElementById("f-date").value=new Date().toISOString().split("T")[0];
+};
+</script>
+</body>
+</html>
