@@ -238,6 +238,73 @@ footer{background:#111;color:#ccc;padding:40px 0 16px;margin-top:40px}
 .ad-unit-wrap.in-article{margin:28px auto;max-width:728px}
 .ad-unit-wrap.banner-ad{background:#f8f8f8;padding:12px;border-radius:6px;margin:16px 0}
 .ad-unit-wrap.horizontal-ad{background:#f8f8f8;padding:8px;border-radius:6px}
+
+/* ADMIN OVERLAY */
+.admin-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#f0f2f5;z-index:9999;display:none;flex-direction:column;overflow:hidden}
+.admin-overlay.open{display:flex}
+.admin-topbar{background:#1a1a2e;color:#fff;padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.admin-topbar h2{font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px}
+.admin-topbar img{height:32px;border-radius:6px}
+.admin-topbar .close-admin{background:var(--red);border:none;color:#fff;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit}
+.admin-login{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#8e100a,#c0160e)}
+.admin-login-box{background:#fff;border-radius:14px;padding:36px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.admin-login-box h2{font-size:20px;font-weight:700;margin-bottom:4px;text-align:center}
+.admin-login-box p{color:#666;font-size:13px;margin-bottom:20px;text-align:center}
+.admin-login-box input{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:7px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px}
+.admin-login-box input:focus{border-color:var(--red)}
+.admin-login-box button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.admin-frame{display:none;width:100%;height:calc(100vh - 52px);flex:1}
+.admin-frame.open{display:flex}
+.admin-err{color:var(--red);font-size:12px;text-align:center;margin-top:8px}
+
+/* ADMIN PANEL INSIDE */
+.ap-wrap{display:flex;width:100%;height:100%;overflow:hidden}
+.ap-sidebar{width:220px;background:#1a1a2e;height:100%;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.ap-sb-logo{padding:16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+.ap-sb-logo img{height:36px;border-radius:6px}
+.ap-sb-logo span{color:#fff;font-weight:700;font-size:14px}
+.ap-nav{flex:1;padding:8px 0}
+.ap-sec{font-size:9px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,0.25);padding:12px 16px 4px;text-transform:uppercase}
+.ap-link{display:flex;align-items:center;gap:8px;padding:9px 16px;color:rgba(255,255,255,0.65);font-size:13px;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.ap-link:hover{background:rgba(255,255,255,0.06);color:#fff}
+.ap-link.active{background:rgba(192,22,14,0.2);color:#fff;border-left-color:var(--red)}
+.ap-content{flex:1;overflow-y:auto;padding:20px;background:#f0f2f5}
+.ap-card{background:#fff;border-radius:10px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden}
+.ap-card-head{padding:14px 18px;border-bottom:1px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center}
+.ap-card-head h3{font-size:14px;font-weight:700}
+.ap-card-body{padding:18px}
+.ap-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.ap-stat{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid var(--sc,#c0160e)}
+.ap-stat .sv{font-size:28px;font-weight:700;line-height:1}
+.ap-stat .sl{font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.af{margin-bottom:14px}
+.af label{display:block;font-size:11px;font-weight:700;color:#333;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.af input,.af textarea,.af select{width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;font-family:inherit;outline:none}
+.af input:focus,.af textarea:focus,.af select:focus{border-color:var(--red)}
+.af textarea{resize:vertical}
+.ap-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.ap-btn-red{background:var(--red);color:#fff}.ap-btn-red:hover{background:#8e100a}
+.ap-btn-green{background:#2e7d32;color:#fff}.ap-btn-green:hover{background:#1b5e20}
+.ap-btn-outline{background:#fff;color:#333;border:1.5px solid #e0e0e0}.ap-btn-outline:hover{border-color:var(--red);color:var(--red)}
+.ap-btn-sm{padding:6px 12px;font-size:12px;border-radius:5px}
+.ap-btn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca}.ap-btn-danger:hover{background:var(--red);color:#fff}
+.ap-table{width:100%;border-collapse:collapse;font-size:13px}
+.ap-table th{text-align:left;padding:10px 12px;background:#fafafa;font-size:11px;font-weight:700;text-transform:uppercase;color:#666;border-bottom:1.5px solid #e0e0e0}
+.ap-table td{padding:11px 12px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
+.ap-table tr:hover td{background:#fdfcfc}
+.ap-table tr:last-child td{border-bottom:none}
+.ap-badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px}
+.ap-badge-pub{background:#e8f5e9;color:#2e7d32}
+.ap-badge-feat{background:#e3f2fd;color:#1565c0}
+.feat-tog{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f8f8f8;border-radius:6px;cursor:pointer;margin-bottom:12px}
+.feat-tog input{width:auto;margin:0}
+.feat-tog label{font-size:13px;font-weight:600;cursor:pointer;margin:0}
+.ap-toast{position:fixed;bottom:20px;right:20px;background:#333;color:#fff;padding:11px 18px;border-radius:8px;font-size:13px;font-weight:600;z-index:99999;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.ap-toast.show{display:block}
+.ap-toast.ap-toast-success{background:#2e7d32}
+.ap-toast.ap-toast-error{background:#c0160e}
+.ticker-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fafafa;border-radius:6px;margin-bottom:8px;border:1px solid #e0e0e0}
+.ticker-row input{flex:1;border:none;background:transparent;font-size:13px;outline:none;font-family:inherit}
 </style>
 <!-- GOOGLE ADSENSE AUTO ADS -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8329599591638655" crossorigin="anonymous"></script>
@@ -292,6 +359,18 @@ let articles = JSON.parse(localStorage.getItem("jangoa_articles")||"null") || [
 
 function saveArticles(){localStorage.setItem("jangoa_articles",JSON.stringify(articles))}
 
+function reloadArticles(){
+  const saved=localStorage.getItem("jangoa_articles");
+  if(saved){try{const p=JSON.parse(saved);if(p&&p.length>0){articles=p;return true;}}catch(e){}}
+  return false;
+}
+
+function getTickerItems(){
+  const saved=localStorage.getItem("jangoa_ticker");
+  if(saved){try{return JSON.parse(saved);}catch(e){}}
+  return articles.slice(0,8).map(a=>a.title);
+}
+
 let curPage="home";
 let curArticle=null;
 let curCat=null;
@@ -328,9 +407,9 @@ function renderHeader(){
     <span id="dtbar"></span>
     <div><a href="#" onclick="nav('about');return false">About Us</a><a href="#" onclick="nav('contact');return false">Contact</a></div>
   </div></div>
-  <div class="ticker"><div class="tick-lbl">BREAKING</div><div class="tick-track"><div class="tick-inner">
-    ${articles.slice(0,8).map(a=>`<span>${a.title}</span>`).join("")}
-    ${articles.slice(0,8).map(a=>`<span>${a.title}</span>`).join("")}
+  <div class="ticker"><div class="tick-lbl">BREAKING</div><div class="tick-track"><div class="tick-inner" id="ticker-inner">
+    ${getTickerItems().map(t=>`<span>${t}</span>`).join("")}
+    ${getTickerItems().map(t=>`<span>${t}</span>`).join("")}
   </div></div></div>
   <header>
     <div class="hdr-in">
@@ -945,7 +1024,14 @@ function updateTime(){
 }
 
 function openAdmin(){
-  window.open("jangoa-admin.html","_blank");
+  // Show inline admin overlay
+  const overlay = document.getElementById("admin-overlay");
+  if(overlay){ 
+    overlay.classList.add("open");
+    const pp = document.getElementById("ap-pass");
+    if(pp){ pp.value=""; pp.focus(); }
+    apUpdateTime();
+  }
 }
 
 
@@ -997,6 +1083,14 @@ function updateSlider(){
 }
 
 window.onload=function(){
+  // Listen for admin panel changes and update website instantly
+  window.addEventListener("storage", function(e){
+    if(e.key === "jangoa_articles" || e.key === "jangoa_ticker"){
+      reloadArticles();
+      render();
+      console.log("Website updated from admin panel!");
+    }
+  });
   // Handle browser back/forward
   window.addEventListener("popstate", function(e){
     if(e.state){
@@ -1028,5 +1122,350 @@ window.onload=function(){
   try{history.replaceState({page:curPage, articleId:curArticle?curArticle.id:null},"","#"+curPage);}catch(e){}
 };
 </script>
+
+<!-- ===== JANGOA ADMIN OVERLAY ===== -->
+<div id="admin-overlay" class="admin-overlay">
+
+  <!-- LOGIN SCREEN -->
+  <div id="ap-login" class="admin-login">
+    <div class="admin-login-box">
+      <div style="text-align:center;margin-bottom:22px">
+        <div style="font-size:28px;font-weight:900;color:#c0160e">JANGOA</div>
+        <div style="font-size:12px;color:#999;margin-top:2px">Admin Panel — लोकांचं मत, आमचा आवाज</div>
+      </div>
+      <h2 style="text-align:center;margin-bottom:4px">Admin Login</h2>
+      <p style="text-align:center;color:#666;font-size:13px;margin-bottom:20px">Sign in to manage your website</p>
+      <input type="password" id="ap-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')apLogin()">
+      <button onclick="apLogin()" style="margin-top:4px">Sign In →</button>
+      <div class="admin-err" id="ap-err"></div>
+      <div style="text-align:center;font-size:11px;color:#ccc;margin-top:12px">Default password: jangoa123</div>
+      <div style="text-align:center;margin-top:12px">
+        <button onclick="document.getElementById('admin-overlay').classList.remove('open')" style="background:none;border:1px solid #ddd;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;color:#999">✕ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="ap-panel" style="display:none;flex:1;flex-direction:column;overflow:hidden">
+    <div class="admin-topbar">
+      <h2>🗞️ JANGOA ADMIN PANEL</h2>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span style="font-size:12px;opacity:.6" id="ap-time"></span>
+        <span style="font-size:12px;background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:10px">Tanvi Avasare</span>
+        <button class="close-admin" onclick="apClose()">✕ Close &amp; View Site</button>
+      </div>
+    </div>
+    <div class="ap-wrap">
+      <div class="ap-sidebar">
+        <div class="ap-nav">
+          <div class="ap-sec">Content</div>
+          <div class="ap-link active" id="apm-dashboard" onclick="apGoto('dashboard')">📊 Dashboard</div>
+          <div class="ap-link" id="apm-write" onclick="apGoto('write')">✏️ Write Article</div>
+          <div class="ap-link" id="apm-articles" onclick="apGoto('articles')">📰 All Articles</div>
+          <div class="ap-link" id="apm-ticker" onclick="apGoto('ticker')">🔴 Breaking Ticker</div>
+          <div class="ap-sec">Settings</div>
+          <div class="ap-link" id="apm-site" onclick="apGoto('site')">⚙️ Site Settings</div>
+          <div class="ap-link" id="apm-seo" onclick="apGoto('seo')">🔍 SEO</div>
+          <div class="ap-link" id="apm-security" onclick="apGoto('security')">🔒 Security</div>
+        </div>
+      </div>
+      <div class="ap-content" id="ap-content"></div>
+    </div>
+  </div>
+</div>
+<div class="ap-toast" id="ap-toast"></div>
+
+<script>
+// ===== ADMIN PANEL LOGIC =====
+const AP_PASS_KEY="jangoa_admin_pass";
+const AP_CATS={goa:{label:"GOA NEWS",color:"#c0160e"},politics:{label:"POLITICS",color:"#1565c0"},sports:{label:"SPORTS",color:"#2e7d32"},entertainment:{label:"ENTERTAINMENT",color:"#6a1b9a"},business:{label:"BUSINESS",color:"#e65100"},education:{label:"EDUCATION",color:"#00695c"},health:{label:"HEALTH",color:"#ad1457"}};
+let apTicker=JSON.parse(localStorage.getItem("jangoa_ticker")||"null")||articles.slice(0,6).map(a=>a.title);
+
+function apUpdateTime(){const el=document.getElementById("ap-time");if(el)el.textContent=new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})+" IST";}
+
+function apLogin(){
+  const pass=document.getElementById("ap-pass").value;
+  const saved=localStorage.getItem(AP_PASS_KEY)||"jangoa123";
+  if(pass===saved){
+    document.getElementById("ap-login").style.display="none";
+    document.getElementById("ap-panel").style.display="flex";
+    apGoto("dashboard");
+    setInterval(apUpdateTime,60000);
+  } else {
+    document.getElementById("ap-err").textContent="Wrong password! Try: jangoa123";
+  }
+}
+
+function apClose(){
+  document.getElementById("admin-overlay").classList.remove("open");
+  document.getElementById("ap-login").style.display="flex";
+  document.getElementById("ap-panel").style.display="none";
+  reloadArticles();
+  render();
+}
+
+function apGoto(page){
+  document.querySelectorAll(".ap-link").forEach(l=>l.classList.remove("active"));
+  const mn=document.getElementById("apm-"+page);
+  if(mn) mn.classList.add("active");
+  const c=document.getElementById("ap-content");
+  if(!c) return;
+  if(page==="dashboard") c.innerHTML=apDash();
+  else if(page==="write") c.innerHTML=apWriteForm(null);
+  else if(page==="articles") c.innerHTML=apArtList();
+  else if(page==="ticker") c.innerHTML=apTickPage();
+  else if(page==="site") c.innerHTML=apSitePage();
+  else if(page==="seo") c.innerHTML=apSeoPage();
+  else if(page==="security") c.innerHTML=apSecPage();
+}
+
+function apSaveArts(){
+  localStorage.setItem("jangoa_articles",JSON.stringify(articles));
+  reloadArticles(); render();
+}
+
+// DASHBOARD
+function apDash(){
+  const feat=articles.find(a=>a.featured);
+  return `<div class="ap-stats">
+    <div class="ap-stat" style="--sc:#c0160e"><div class="sv">${articles.length}</div><div class="sl">Total Articles</div></div>
+    <div class="ap-stat" style="--sc:#2e7d32"><div class="sv">8</div><div class="sl">Categories</div></div>
+    <div class="ap-stat" style="--sc:#1565c0"><div class="sv" style="font-size:18px">${articles[0]?articles[0].date.split(",")[0]:"—"}</div><div class="sl">Last Published</div></div>
+  </div>
+  <div class="ap-card"><div class="ap-card-head"><h3>📰 Recent Articles</h3><button class="ap-btn ap-btn-red ap-btn-sm" onclick="apGoto('write')">+ New</button></div>
+  <div style="overflow-x:auto"><table class="ap-table"><thead><tr><th>Title</th><th>Cat</th><th>Date</th><th>Actions</th></tr></thead>
+  <tbody>${articles.slice(0,10).map(a=>`<tr>
+    <td style="font-weight:600;max-width:200px">${a.title.substring(0,50)}...</td>
+    <td><span style="background:${(AP_CATS[a.cat]||{color:"#999"}).color};color:#fff;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700">${(AP_CATS[a.cat]||{label:"—"}).label}</span></td>
+    <td style="font-size:12px;color:#666">${a.date}</td>
+    <td><button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apEditArt(${a.id})">✏️</button>
+    <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="apDelArt(${a.id})" style="margin-left:4px">🗑</button></td>
+  </tr>`).join("")}</tbody></table></div></div>
+  <div class="ap-card"><div class="ap-card-head"><h3>⚡ Quick Actions</h3></div>
+  <div class="ap-card-body" style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="ap-btn ap-btn-red" onclick="apGoto('write')">✏️ Write Article</button>
+    <button class="ap-btn ap-btn-outline" onclick="apGoto('ticker')">🔴 Edit Ticker</button>
+    <button class="ap-btn ap-btn-outline" onclick="apGoto('site')">⚙️ Settings</button>
+    <button class="ap-btn ap-btn-outline" onclick="apClose()">🌐 View Website</button>
+  </div></div>`;
+}
+
+// WRITE
+function apWriteForm(editId){
+  const a=editId?articles.find(x=>x.id===editId):null;
+  return `<div style="display:grid;grid-template-columns:1fr 250px;gap:14px">
+  <div class="ap-card"><div class="ap-card-head"><h3>${a?"✏️ Edit Article":"✏️ Write New Article"}</h3></div>
+  <div class="ap-card-body">
+    <input type="hidden" id="apf-id" value="${a?a.id:""}">
+    <div class="af"><label>Headline *</label><input type="text" id="apf-title" value="${a?a.title:""}" placeholder="Enter headline..."></div>
+    <div class="af"><label>Summary *</label><textarea id="apf-sum" style="height:65px" placeholder="1-2 sentence summary...">${a?a.summary:""}</textarea></div>
+    <div class="af"><label>Article Body *</label>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;padding:6px;background:#fafafa;border:1.5px solid #e0e0e0;border-bottom:none;border-radius:5px 5px 0 0">
+        <button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apIns('p')">¶ Para</button>
+        <button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apIns('h3')">H3</button>
+        <button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apIns('blockquote')">❝ Quote</button>
+        <button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apIns('li')">• List</button>
+      </div>
+      <textarea id="apf-body" style="height:260px;font-family:monospace;font-size:12px;width:100%;padding:10px;border:1.5px solid #e0e0e0;border-top:none;border-radius:0 0 5px 5px;outline:none;resize:vertical" placeholder="<p>First paragraph...</p>&#10;<h3>Subheading</h3>&#10;<p>More content...</p>&#10;<blockquote>A great quote</blockquote>">${a?a.body:""}</textarea>
+    </div>
+    <div class="af"><label>Image Label</label><input type="text" id="apf-img" value="${a?a.imgLabel||"":""}" placeholder="e.g. GOA NEWS 2026"></div>
+  </div></div>
+  <div>
+  <div class="ap-card"><div class="ap-card-head"><h3>📤 Publish</h3></div>
+  <div class="ap-card-body">
+    <div class="af"><label>Category</label><select id="apf-cat">${Object.entries(AP_CATS).map(([k,v])=>`<option value="${k}" ${a&&a.cat===k?"selected":""}>${v.label}</option>`).join("")}</select></div>
+    <div class="af"><label>Author</label><input type="text" id="apf-auth" value="${a?a.author:"Jangoa Desk"}"></div>
+    <div class="af"><label>Date</label><input type="date" id="apf-date" value="${new Date().toISOString().split("T")[0]}"></div>
+    <div class="af"><label>Read Time</label><input type="text" id="apf-read" value="${a?a.readTime:"3 min read"}"></div>
+    <div class="feat-tog"><input type="checkbox" id="apf-feat" ${a&&a.featured?"checked":""}><label for="apf-feat">⭐ Set as Featured Hero</label></div>
+    <button class="ap-btn ap-btn-green" style="width:100%;justify-content:center;margin-bottom:8px" onclick="apSaveArt()">✅ Save &amp; Publish — Live!</button>
+    <button class="ap-btn ap-btn-outline" style="width:100%;justify-content:center" onclick="apGoto('write')">✕ Clear</button>
+  </div></div>
+  <div class="ap-card" style="margin-top:12px"><div class="ap-card-head"><h3>💡 Tips</h3></div>
+  <div class="ap-card-body" style="font-size:12px;color:#666;line-height:1.9">
+    ✅ Wrap text in &lt;p&gt;...&lt;/p&gt;<br>✅ Use &lt;h3&gt; for subheadings<br>✅ Use &lt;blockquote&gt; for quotes<br>✅ Changes show on site instantly!
+  </div></div></div></div>`;
+}
+
+function apIns(tag){
+  const ta=document.getElementById("apf-body");if(!ta)return;
+  const m={p:"<p>Write here...</p>\n",h3:"<h3>Subheading</h3>\n",blockquote:"<blockquote>Quote here</blockquote>\n",li:"<li>List item</li>\n"};
+  const pos=ta.selectionStart;
+  ta.value=ta.value.substring(0,pos)+(m[tag]||"")+ta.value.substring(pos);
+}
+
+function apSaveArt(){
+  const title=document.getElementById("apf-title").value.trim();
+  const summary=document.getElementById("apf-sum").value.trim();
+  const body=document.getElementById("apf-body").value.trim();
+  if(!title||!summary||!body){apToast("Please fill title, summary and body!","error");return;}
+  const cat=document.getElementById("apf-cat").value;
+  const author=document.getElementById("apf-auth").value.trim()||"Jangoa Desk";
+  const dateVal=document.getElementById("apf-date").value;
+  const readTime=document.getElementById("apf-read").value.trim()||"3 min read";
+  const featured=document.getElementById("apf-feat").checked;
+  const imgLabel=document.getElementById("apf-img").value.trim()||cat.toUpperCase();
+  const editId=document.getElementById("apf-id").value;
+  const fmt=dateVal?new Date(dateVal).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}):new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});
+  if(featured)articles.forEach(a=>a.featured=false);
+  if(editId){
+    const idx=articles.findIndex(a=>a.id===parseInt(editId));
+    if(idx>-1)articles[idx]={...articles[idx],title,summary,body,cat,author,date:fmt,readTime,featured,imgLabel};
+    apToast("Article updated! Live on site ✅","success");
+  } else {
+    const newId=Math.max(0,...articles.map(a=>a.id))+1;
+    articles.unshift({id:newId,cat,title,summary,body,author,date:fmt,readTime,imgLabel,featured});
+    apToast("Article published! Live now 🎉","success");
+  }
+  apSaveArts();
+  setTimeout(()=>apGoto("articles"),1200);
+}
+
+// ALL ARTICLES
+function apArtList(){
+  return `<div class="ap-card">
+  <div class="ap-card-head"><h3>📰 All Articles (${articles.length})</h3><button class="ap-btn ap-btn-red ap-btn-sm" onclick="apGoto('write')">+ New</button></div>
+  <div style="overflow-x:auto"><table class="ap-table">
+  <thead><tr><th>#</th><th style="min-width:200px">Title</th><th>Category</th><th>Author</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>${articles.map((a,i)=>`<tr>
+    <td style="color:#999;font-size:12px">${i+1}</td>
+    <td style="font-weight:600">${a.title.substring(0,55)}${a.title.length>55?"...":""}</td>
+    <td><span style="background:${(AP_CATS[a.cat]||{color:"#999"}).color};color:#fff;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700">${(AP_CATS[a.cat]||{label:"—"}).label}</span></td>
+    <td style="font-size:12px">${a.author}</td>
+    <td style="font-size:12px;color:#666;white-space:nowrap">${a.date}</td>
+    <td><span class="ap-badge ${a.featured?"ap-badge-feat":"ap-badge-pub"}">${a.featured?"⭐ Featured":"Published"}</span></td>
+    <td style="white-space:nowrap">
+      <button class="ap-btn ap-btn-sm ap-btn-outline" onclick="apEditArt(${a.id})">✏️ Edit</button>
+      <button class="ap-btn ap-btn-sm" onclick="apFeat(${a.id})" style="margin-left:4px;background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;border-radius:5px;padding:5px 10px;cursor:pointer;font-size:12px">⭐</button>
+      <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="apDelArt(${a.id})" style="margin-left:4px">🗑</button>
+    </td>
+  </tr>`).join("")}</tbody>
+  </table></div></div>`;
+}
+
+function apEditArt(id){
+  document.getElementById("ap-content").innerHTML=apWriteForm(id);
+  document.querySelectorAll(".ap-link").forEach(l=>l.classList.remove("active"));
+  const mn=document.getElementById("apm-write");if(mn)mn.classList.add("active");
+}
+
+function apFeat(id){
+  articles.forEach(a=>a.featured=(a.id===id));
+  apSaveArts(); apGoto("articles");
+  apToast("Featured story updated! ⭐","success");
+}
+
+function apDelArt(id){
+  const a=articles.find(x=>x.id===id);if(!a)return;
+  if(!confirm("Delete: "+a.title.substring(0,60)+"?"))return;
+  articles=articles.filter(x=>x.id!==id);
+  apSaveArts(); apGoto("articles");
+  apToast("Article deleted.","success");
+}
+
+// TICKER
+function apTickPage(){
+  return `<div class="ap-card"><div class="ap-card-head"><h3>🔴 Breaking News Ticker</h3>
+  <button class="ap-btn ap-btn-red ap-btn-sm" onclick="apAddTick()">+ Add</button></div>
+  <div class="ap-card-body">
+    <div style="background:linear-gradient(135deg,#c0160e,#8e100a);color:#fff;padding:10px 14px;border-radius:7px;font-size:13px;margin-bottom:14px">
+      📺 Preview: <strong id="tick-prev">${apTicker[0]||"No items"}</strong>
+    </div>
+    <p style="font-size:12px;color:#666;margin-bottom:12px">Edit these headlines that scroll in the red ticker at the top of your website.</p>
+    <div id="ap-tick-list">${apTicker.map((t,i)=>`
+      <div class="ticker-row">
+        <input type="text" id="at-${i}" value="${t}" oninput="document.getElementById('tick-prev').textContent=this.value">
+        <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="apRemTick(${i})">✕</button>
+      </div>`).join("")}
+    </div>
+    <button class="ap-btn ap-btn-green" onclick="apSaveTick()" style="margin-top:12px">💾 Save Ticker — Goes Live Now!</button>
+  </div></div>`;
+}
+
+function apAddTick(){apTicker.push("New headline...");apGoto("ticker");}
+function apRemTick(i){apTicker.splice(i,1);apGoto("ticker");}
+function apSaveTick(){
+  const inputs=document.querySelectorAll("[id^='at-']");
+  apTicker=Array.from(inputs).map(el=>el.value.trim()).filter(v=>v);
+  localStorage.setItem("jangoa_ticker",JSON.stringify(apTicker));
+  reloadArticles(); render();
+  apToast("Ticker saved! Live now 🔴","success");
+}
+
+// SITE SETTINGS
+function apSitePage(){
+  return `<div class="ap-card"><div class="ap-card-head"><h3>⚙️ Site Settings</h3></div>
+  <div class="ap-card-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div class="af"><label>Site Name</label><input type="text" id="aps-name" value="Jangoa"></div>
+      <div class="af"><label>Editor Name</label><input type="text" id="aps-editor" value="Tanvi Avasare"></div>
+      <div class="af"><label>Tagline</label><input type="text" id="aps-tag" value="लोकांचं मत, आमचा आवाज"></div>
+      <div class="af"><label>Contact Email</label><input type="email" id="aps-email" value="jangoanews@gmail.com"></div>
+      <div class="af"><label>Address</label><input type="text" id="aps-addr" value="Panaji, Goa - 403001"></div>
+      <div class="af"><label>AdSense ID</label><input type="text" id="aps-ads" value="ca-pub-8329599591638655"></div>
+    </div>
+    <button class="ap-btn ap-btn-red" onclick="apToast('Settings saved! ✅','success')" style="margin-top:12px">💾 Save Settings</button>
+  </div></div>`;
+}
+
+// SEO
+function apSeoPage(){
+  return `<div class="ap-card"><div class="ap-card-head"><h3>🔍 SEO Settings</h3></div>
+  <div class="ap-card-body">
+    <div class="af"><label>Homepage Meta Title</label><input type="text" value="Jangoa - Goa's Trusted News Portal"></div>
+    <div class="af"><label>Meta Description</label><textarea style="height:70px">Jangoa is Goa's leading news portal covering breaking news, politics, sports, entertainment, and business.</textarea></div>
+    <div class="af"><label>Keywords</label><input type="text" value="Goa news, Jangoa, Panaji news"></div>
+    <div class="af"><label>Google Analytics ID</label><input type="text" placeholder="G-XXXXXXXXXX"></div>
+    <div style="background:#e3f2fd;border-radius:7px;padding:12px;font-size:12px;color:#0d47a1;margin:12px 0">
+      💡 Submit your sitemap at <strong>jangoa.in/sitemap.xml</strong> to Google Search Console for better Google ranking!
+    </div>
+    <button class="ap-btn ap-btn-red" onclick="apToast('SEO saved! ✅','success')">💾 Save SEO</button>
+  </div></div>`;
+}
+
+// SECURITY
+function apSecPage(){
+  return `<div class="ap-card"><div class="ap-card-head"><h3>🔒 Security</h3></div>
+  <div class="ap-card-body">
+    <div class="af"><label>Current Password</label><input type="password" id="apsc-cur" placeholder="Current password"></div>
+    <div class="af"><label>New Password</label><input type="password" id="apsc-new" placeholder="Minimum 6 characters"></div>
+    <div class="af"><label>Confirm Password</label><input type="password" id="apsc-conf" placeholder="Repeat new password"></div>
+    <button class="ap-btn ap-btn-red" onclick="apChgPass()" style="margin-bottom:16px">🔒 Update Password</button>
+    <hr style="border:none;border-top:1px solid #eee;margin-bottom:16px">
+    <button class="ap-btn ap-btn-outline" onclick="apBackup()">⬇️ Backup All Articles (JSON)</button>
+  </div></div>`;
+}
+
+function apChgPass(){
+  const cur=document.getElementById("apsc-cur").value;
+  const saved=localStorage.getItem(AP_PASS_KEY)||"jangoa123";
+  if(cur!==saved){apToast("Wrong current password!","error");return;}
+  const n1=document.getElementById("apsc-new").value;
+  const n2=document.getElementById("apsc-conf").value;
+  if(n1.length<6){apToast("Min 6 characters!","error");return;}
+  if(n1!==n2){apToast("Passwords don't match!","error");return;}
+  localStorage.setItem(AP_PASS_KEY,n1);
+  apToast("Password updated! 🔒","success");
+}
+
+function apBackup(){
+  const data=JSON.stringify({articles,ticker:apTicker},null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="jangoa-backup-"+new Date().toISOString().split("T")[0]+".json";
+  a.click();
+  apToast("Backup downloaded! ✅","success");
+}
+
+function apToast(msg,type){
+  const t=document.getElementById("ap-toast");
+  t.textContent=msg;
+  t.className="ap-toast show ap-toast-"+(type||"info");
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.className="ap-toast",3500);
+}
+</script>
+
 </body>
 </html>
